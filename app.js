@@ -27,8 +27,12 @@ d3.queue()
       const width = +d3.select('.chart-container')
                         .node().offsetWidth;
 
+      const height = 300;
+
       createMap(width, width * 4 / 5);
+      createPie(width, height)
       drawMap(geoData, data, currentYear, currentDataType);
+      drawPie(data, currentYear);
 
         d3.select('#year')
             .property('min', currentYear)
@@ -37,6 +41,7 @@ d3.queue()
             .on('input', () => {
               currentYear = +d3.event.target.value;
               drawMap(geoData, data, currentYear, currentDataType);
+              drawPie(data, currentYear);
             })
 
         d3.selectAll('input[name="data-type"]')
