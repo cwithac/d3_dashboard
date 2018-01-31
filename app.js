@@ -16,19 +16,19 @@ d3.queue()
     .await(function(error, mapData, data) {
       if (error) throw error;
 
-      const extremeYears = d3.extent(data, d => d.year);
-      const currentYear = extremeYears[0];
-      const currentDataType = d3.select('input[name="data-type"]:checked')
+      let extremeYears = d3.extent(data, d => d.year);
+      let currentYear = extremeYears[0];
+      let currentDataType = d3.select('input[name="data-type"]:checked')
                                 .attr('value');
-      const geoData = topojson.feature(mapData, mapData.objects.countries).features;
+      let geoData = topojson.feature(mapData, mapData.objects.countries).features;
 
       //SVG Spacing
 
       const width = +d3.select('.chart-container')
                         .node().offsetWidth;
 
-            createMap(width, width * 4/5);
-            drawMap(geoData, data, currentYear, currentDataType);
+      createMap(width, width * 4 / 5);
+      drawMap(geoData, data, currentYear, currentDataType);
 
         d3.select('#year')
             .property('min', currentYear)
