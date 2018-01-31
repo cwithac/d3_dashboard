@@ -53,6 +53,17 @@ const update = map.selectAll('.country')
         .append('path')
           .classed('country', true)
           .attr('d', path)
+          .on('click', function() {
+            const currentDataType = d3.select('input:checked')
+                                      .property('value');
+            const country = d3.select(this);
+            const isActive = country.classed('active');
+            const countryName = isActive ? '' : country.data()[0].properties.country;
+            drawBar(climateData, currentDataType, countryName);
+            highlightBars(+d3.select('#year').property('value'));
+            d3.selectAll('.country').classed('active', false);
+            country.classed('active', !isActive);
+          })
         .merge(update)
           .transition()
           .duration(750)
